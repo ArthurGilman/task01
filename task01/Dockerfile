@@ -16,6 +16,6 @@ WORKDIR /app
 
 COPY --from=builder app app
 
-COPY --from=builder /src/struct.sql struct.sql
+COPY --from=builder /src/struct.txt struct.txt
 
 CMD ["./app"]

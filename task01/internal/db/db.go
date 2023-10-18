@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
@@ -39,6 +40,7 @@ var (
 func ConnectionPsql() error {
 	dsn := config.Get().PostgreSQL.DSN
 	table = config.Get().PostgreSQL.Talbe
+	log.Println(dsn)
 	maxAttempts := 5
 
 	var err error
@@ -60,7 +62,7 @@ func ConnectionPsql() error {
 }
 
 func InitStruct() error {
-	file, err := os.Open("struct.sql")
+	file, err := os.Open("struct.txt")
 
 	if err != nil {
 		return err
@@ -71,7 +73,7 @@ func InitStruct() error {
 
 	for scan.Scan() {
 		query := fmt.Sprintf("ALTER TABLE %s ADD COLUMN %s", table, scan.Text())
-
+		log.Println(query)
 		_, err := conn.Exec(Ctx, query)
 
 		if err != nil {

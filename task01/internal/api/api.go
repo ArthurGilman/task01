@@ -26,8 +26,8 @@ func Init() {
 
 	router := gin.Default()
 
-	router.Use(cors.New(conf))
 	router.Use(logger.LoggerMiddleware())
+	router.Use(cors.New(conf))
 
 	router.GET("api/persons", showPersons)
 	router.POST("api/towers", addPerson)

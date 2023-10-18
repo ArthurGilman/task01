@@ -4,9 +4,11 @@ import (
 	"log"
 	"sync"
 	"task01/internal/api"
+
 	"task01/internal/cache"
 	"task01/internal/config"
 	"task01/internal/db"
+
 	"task01/internal/kafka"
 	"task01/internal/logger"
 )
@@ -25,10 +27,12 @@ func main() {
 
 	if err = db.ConnectionPsql(); err != nil {
 		logger.ErrorLog.Fatalf("%v", err)
+		return
 	}
 
 	if err = db.InitStruct(); err != nil {
 		logger.ErrorLog.Fatalf("%v", err)
+		return
 	}
 
 	if err = kafka.Init(); err != nil {
@@ -36,7 +40,7 @@ func main() {
 	}
 
 	wg := &sync.WaitGroup{}
-	wg.Add(2)
+	wg.Add(1)
 	defer wg.Done()
 	defer wg.Done()
 

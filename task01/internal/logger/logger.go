@@ -13,7 +13,7 @@ var (
 )
 
 func Init() error {
-	f, err := os.OpenFile("logs.log", os.O_RDWR|os.O_CREATE, 0666)
+	f, err := os.OpenFile("logs.log", os.O_RDWR|os.O_CREATE, 0777)
 	if err != nil {
 		return err
 	}
